@@ -17,7 +17,7 @@ const app = initializeApp(appSettings);
 //database variable that will pass in the app as an argument.
 const database = getDatabase(app);
 
-//setting up the reference. It is imported above. The ref takes in the datatbase and then it is called
+//setting up the reference. It is imported above. The ref takes in the datatbase and then it is called shoppingList.
 const shoppingListDB = ref(database, "shoppingList");
 
 const inputFieldEl = document.getElementById("input-field");
@@ -26,6 +26,7 @@ const addButtonEl = document.getElementById("add-button");
 addButtonEl.addEventListener("click", function () {
   let inputValue = inputFieldEl.value;
 
+  //input value is pushed to the shopping list database.
   push(shoppingListDB, inputValue);
 
   console.log(inputValue);
