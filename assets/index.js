@@ -1,3 +1,7 @@
+const inputFieldEl = document.getElementById("input-field");
+const addButtonEl = document.getElementById("add-button");
+const shoppingListEl = document.getElementById("shopping-list");
+
 //set type to module in HTML file as the import has been used.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import {
@@ -20,14 +24,23 @@ const database = getDatabase(app);
 //setting up the reference. It is imported above. The ref takes in the datatbase and then it is called shoppingList.
 const shoppingListDB = ref(database, "shoppingList");
 
-const inputFieldEl = document.getElementById("input-field");
-const addButtonEl = document.getElementById("add-button");
-
 addButtonEl.addEventListener("click", function () {
   let inputValue = inputFieldEl.value;
 
   //input value is pushed to the shopping list database.
   push(shoppingListDB, inputValue);
 
-  console.log(inputValue);
+  clearInput();
+
+  addItemToShoppingList(inputValue);
 });
+
+//resets the input field once the user has searched.
+function clearInput() {
+  inputFieldEl.value = "";
+}
+
+//add shoppping list itmes entered below the buttons to the existing list.
+function addItemToShoppingList(item) {
+  shoppingListEl.innerHTML += `<li>${item}</li>`;
+}
