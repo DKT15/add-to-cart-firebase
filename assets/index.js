@@ -9,6 +9,7 @@ import {
   ref,
   push,
   onValue,
+  remove,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 const appSettings = {
@@ -34,17 +35,23 @@ addButtonEl.addEventListener("click", function () {
   clearInput();
 });
 
+//runs whenever change takes place in the database.
 onValue(shoppingListDB, function (snapshot) {
-  let itemsArray = Object.entries(snapshot.val()); //converts snapshot.val() from an object to an Array. Entries gives both the id and value in the array.
+  // will only fetch items from the database if there is any. Otherwise "No items here yet." will be displayed.
+  if (snapshot.exists()) {
+    let itemsArray = Object.entries(snapshot.val()); //converts snapshot.val() from an object to an Array. Entries gives both the id and value in the array.
 
-  clearShoppingListEl(); //clearing the items before they are added onto the list. Stops items being added multiple times.
+    clearShoppingListEl(); //clearing the items before they are added onto the list. Stops items being added multiple times.
 
-  for (var i = 0; i < itemsArray.length; i++) {
-    let currentItem = itemsArray[i];
-    let currentItemID = currentItem[0];
-    let currentItemValue = currentItem[1];
+    for (var i = 0; i < itemsArray.length; i++) {
+      let currentItem = itemsArray[i];
+      let currentItemID = currentItem[0];
+      let currentItemValue = currentItem[1];
 
-    addItemToShoppingList(currentItem); //appends each item to the shopping list element for each iteration.
+      addItemToShoppingList(currentItem); //appends each item to the shopping list element for each iteration.
+    }
+  } else {
+    shoppingListEl.innerHTML = "No items here yet.";
   }
 });
 
@@ -66,6 +73,13 @@ function addItemToShoppingList(item) {
   let newEl = document.createElement("li");
 
   newEl.textContent = itemValue;
+
+  //getting ID from the database and then removing the specific item when it is clicked.
+  newEl.addEventListener("click", function () {
+    let exactLocationOfItemInDB = ref(database, `ShoppingList/${itemID}`);
+
+    remove(exactLocationOfItemInDB);
+  });
 
   shoppingListEl.append(newEl);
 }
