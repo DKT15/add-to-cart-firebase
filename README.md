@@ -35,7 +35,7 @@ This is a mobile app that allows users to make a shopping list.
 
 ## Deployment
 
-You can access the website with this [link.](https://dkt15.github.io/Prework-Study-Guide/)
+You can access the website with this [link.](https://dkt-add-to-cart.netlify.app/)
 
 ## Contributing
 
