@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a mobile app that allows users to make a shopping list.
+This is a mobile app that allows users to make a shopping list. This app uses firebase to store data the user entered.go
 
 ## Table of Contents
 
