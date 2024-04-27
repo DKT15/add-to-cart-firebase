@@ -76,7 +76,7 @@ function addItemToShoppingList(item) {
 
   //getting ID from the database and then removing the specific item when it is clicked.
   newEl.addEventListener("click", function () {
-    let exactLocationOfItemInDB = ref(database, `ShoppingList/${itemID}`);
+    let exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`);
 
     remove(exactLocationOfItemInDB);
   });
